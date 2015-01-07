@@ -6,7 +6,7 @@ This script reads the cells from 1st column of the excel file and searches that 
 
 If the value in the cell of xls file is present in the database file, then the script rights "Live" in the 2nd column of xls file against it. else it writes "not Live"
 
-USE:./Pyscript.py PATH/TO/the_xlsx_file PATH/TO/the_Database_file suffix
+USE: $ ./Pyscript.py PATH/TO/the_xlsx_file PATH/TO/the_Database_file suffix
 
 *suffix mentioned above in the use is another parameter which can be passed along.
 
