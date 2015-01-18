@@ -25,14 +25,21 @@ for row_index in range(sheet.nrows):
 		variable = str(int(cell.value))
 	else:
 		variable = cell.value
-	p = subprocess.Popen(['grep', '-c', variable if not suffix else suffix+variable , path2], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	p = subprocess.Popen(['grep', '-w', variable if not suffix else suffix+variable , path2], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 	out, err = p.communicate()
 	print out
-	if not int(out):
+	if not out:
 		wsheet.write(row_index, 1, "Not Live")
 	else:
-		wsheet.write(row_index, 1, "Live")
+		checkstr = out.split(':',2); 
+		p = subprocess.Popen(['grep', '-c', checkstr[0]+':'+checkstr[1], path2], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		out1, err = p.communicate()
+		print out1
+		if int(out1) == 1:
+			wsheet.write(row_index, 1, "Live")
+		else:
+			wsheet.write(row_index, 1, "Over Clustered")
 
 wbook.save(path)
 
